@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <fisha_orderflow>
+            <general>
+                <enable>0</enable>
+                <remove_order_statuses>complete,closed,canceled,holded</remove_order_statuses>
+                <leave_in_queue_order_statuses>STGM2</leave_in_queue_order_statuses>
+                <max_attempts>5</max_attempts>
+                <start_order_id>156626</start_order_id>
+                <send_notification_to>ayeletm@elad.co.il,nat@aldo-isr.co.il,service@aldoshoes.co.il,lilach@aldo-isr.co.il,batchen@aldo-isr.co.il</send_notification_to>
+            </general>
+            <api>
+                <inv_api_url>http://api.aldoshoes.co.il:81/FishaAPI/orders/</inv_api_url>
+            </api>
+            <email_templates>
+                <enable>1</enable>
+                <orderflow_bcc_recipients>nat@aldo-isr.co.il,service@aldoshoes.co.il,lilach@aldo-isr.co.il</orderflow_bcc_recipients>
+                <orderflow_active_templates>processing,inv_cancel_credit,inv_cancel_partially,inv_cancel_transaction,delivery_received,delivery_shipped,prio_invoiced,refund_transaction_failed,pickup_customer_received,pickup_received,complete,canceled</orderflow_active_templates>
+                <orderflow_send_to_admin_templates>refund_transaction_failed</orderflow_send_to_admin_templates>
+                <complete>refund_transaction_failed</complete>
+            </email_templates>
+            <cron_jobs>
+                <run>0 * * 30 2</run>
+                <cleanup>25 3 * * *</cleanup>
+            </cron_jobs>
+        </fisha_orderflow>
+    </default>
+</config>

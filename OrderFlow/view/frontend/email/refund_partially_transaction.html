@@ -1,0 +1,65 @@
+<!--@subject {{trans "Credit memo for your %store_name order" store_name=$store.frontend_name}} @-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p>{{trans "Hi,"}} {{var order.getCustomerLastname()}}  {{var order.getCustomerFirstname()}}</p>
+            <p>
+                {{trans "Unfortunately, the product ordered has run out of stock after you place your order, and we are unable to deliver it. The means of payment in which you paid will be credited within 7 business days in accordance with the provisions of the Consumer Protection Law. Attached is a credit memo for the item (s) canceled in the #%order_id" order_id=$order.increment_id}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email_dawnload_creditMemo" style="margin: 0; display: block; text-align: right">
+        <td style="display: inline-block; width: 50%">
+            <div style="display: flex; margin: 0; width: 100%">
+                <a href="{{var attachmentUrl}}" style="color: #000; display: flex">
+                    <span style="padding-left: 10px;">{{trans "To download a credit memo"}}</span>
+                    <img src="{{view url='images/icons/shipped.png'}}" height="22" width="16" alt="{{trans 'shipped'}}" />
+                </a>
+            </div>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td style="padding: 13px 16px;">
+            <h1 style=" display:inline-block; direction:rtl; width: 100%; text-align: right">{{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}</h1>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="order-details" style="margin: 0">
+                <tr class="email_attention_notice">
+                    <td style="width: 100%;">
+                        <span>{{trans "Item canceled in order"}}</span>
+                        <img src="{{view url='images/icons/attention.png'}}" width="25" height="25" alt="{{trans 'attention'}}" />
+                    </td>
+                </tr>
+
+            </table>
+            {{layout handle="sales_email_order_creditmemo_items" creditmemo_id=$order.creditmemo_id order_id=$order.entity_id}}
+        </td>
+    </tr>
+    <tr class="invintation_and_order">
+        <td style="display: block; padding-bottom: 30px">
+            <table style="width: 100%;direction: ltr">
+                <tr>
+                    <td style="width: 50%; text-align: left; box-sizing: border-box;position: relative;">
+                        <div style="width: 95%; padding: 15px 20px;display: inline-block; text-align: center; margin: 0;">
+                            <span>{{trans "View invitation"}}</span>
+                            <img src="{{view url='images/icons/processing.png'}}" height="22" width="16" alt="{{trans 'processing'}}" />
+                        </div>
+                    </td>
+                    <td style="width: 50%; text-align: right; box-sizing: border-box;position: relative;">
+                        <div  style="width: 95%; padding: 15px 20px;display: inline-block; text-align: center;margin: 0;">
+                            <span>{{trans "Tracking orders"}}</span>
+                            <img src="{{view url='images/icons/shipped.png'}}" height="22" width="16" alt="{{trans 'shipped'}}" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

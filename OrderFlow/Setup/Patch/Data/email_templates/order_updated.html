@@ -1,0 +1,13 @@
+{{template config_path="design/email/header_template"}}
+
+<p style="font-weight: 600;">נושא: עדכון הזמנה # {{var order.increment_id}}.</p>
+<p>היי {{var customer.name()}},</p>
+<p>אנו מודים לך על הזמנתך באתר ALDO Shoes Israel.</p>
+<p>לצערנו, המוצרים המפורטים להלן, אזלו מהמלאי לאחר ביצוע ההזמנה על-ידך, ואין באפשרותנו לספקם.</p>
+<p>אמצעי התשלום בו שילמת יזוכה תוך 7 ימי עסקים בגין הפריטים המבוטלים בהתאם להוראות חוק הגנת הצרכן.</p>
+
+{{layout handle="sales_email_order_items" area="frontend" order_id=$orderId}}
+
+{{var items_html}}
+
+{{template config_path="design/email/footer_template"}}

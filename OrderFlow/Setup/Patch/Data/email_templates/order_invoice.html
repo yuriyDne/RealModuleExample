@@ -1,0 +1,13 @@
+{{template config_path="design/email/header_template"}}
+
+<p>היי {{var order.getCustomerName()}},</p>
+<p>אנו מודים לך על הזמנתך באתר ALDO Shoes Israel.</p>
+<p> {{var order.increment_id}} מס הזמנה</p>
+<p>למייל הזה מצורפת חשבונית מס / קבלה</p>
+<p>תודה</p>
+
+{{layout handle="sales_email_order_items" area="frontend" order_id=$orderId}}
+
+{{var items_html}}
+
+{{template config_path="design/email/footer_template"}}

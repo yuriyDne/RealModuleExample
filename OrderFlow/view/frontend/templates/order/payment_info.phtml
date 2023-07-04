@@ -1,0 +1,7 @@
+<?php
+/** @var \Fisha\OrderFlow\Helper\PaymentInfoHelper $paymentHelper */
+$paymentHelper = $this->helper(\Fisha\OrderFlow\Helper\PaymentInfoHelper::class);
+$orderId = (int) $block->getData('order');
+if ($orderId) {
+    echo $paymentHelper->getPaymentInfoHtml($orderId);
+}

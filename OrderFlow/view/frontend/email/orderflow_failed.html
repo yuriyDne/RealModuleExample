@@ -1,0 +1,15 @@
+<!--@subject {{trans "OrderFlow Failed for order: %orderId status: %status" orderId=$order.getIncrementId() status=$order.getStatus()}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p style="text-align: left">
+    <b style="font-weight: 600">order:</b> {{var order.getIncrementId()}}
+</p>
+<p style="text-align: left">
+    <b style="font-weight: 600">Current Status:</b> {{var order.getStatus()}}
+</p>
+<p style="text-align: left">
+    <b style="font-weight: 600">Error Message:</b> {{var errorMessage}}
+</p>
+
+{{template config_path="design/email/footer_template"}}

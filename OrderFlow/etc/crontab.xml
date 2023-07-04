@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Fisha\OrderFlow\Cron\Queue\Cleanup" method="execute" name="fisha_orderflow_cleanup">
+            <config_path>fisha_orderflow/cron_jobs/cleanup</config_path>
+        </job>
+        <job instance="Fisha\OrderFlow\Cron\Queue\Run" method="execute" name="fisha_orderflow_run">
+            <config_path>fisha_orderflow/cron_jobs/run</config_path>
+        </job>
+    </group>
+</config>

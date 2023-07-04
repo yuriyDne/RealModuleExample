@@ -1,0 +1,31 @@
+<!--@subject Invitation to the branch @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var customer.email":"Customer Email",
+"htmlescape var=$customer.password":"Customer Password"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+<p>Hey, {{var order.getStoreName()}}</p>
+<p>On the way to you, please contact the customer as soon as the order arrives at the branch.<strong>{{var order.getCustomerName ()}} </strong> Invitation<strong> {{var order.getIncrementId ()}} </strong> for </p>
+<p style = "font-weight: 600;">Order details:</p>
+<p>Order Number</p>
+<p><strong>{{var order.getIncrementId()}}</strong>
+<p>Customer Name</p>
+<p><strong>{{var order.getCustomerName()}}</strong></p>
+<p>Phone Number</p>
+<p><strong>{{var order.getCellphone()}}</strong></p>
+{{layout handle="sales_email_order_items" area="frontend" order_id=$orderId}}
+
+{{var items_html}}
+<p>Thank you very much! </p>
+<p><strong>The aldoshoes.co.il team </strong> </p>
+
+{{template config_path="design/email/footer_template"}}

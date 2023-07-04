@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Fisha\OrderFlow\Api\QueueCronInterface" type="Fisha\OrderFlow\Cron\Queue\Cleanup"/>
+    <preference for="Fisha\OrderFlow\Api\Pdf\GenerateInvoiceServiceInterface" type="Fisha\OrderFlow\Service\Pdf\GenerateInvoiceService"/>
+
+    <type name="Fisha\OrderFlow\Cron\Queue\Cleanup">
+        <arguments>
+            <argument name="serviceModel" xsi:type="object">Fisha\OrderFlow\Service\Queue\Clean</argument>
+        </arguments>
+    </type>
+    <virtualType name="Fisha\OrderFlow\Cron\Queue\Run" type="Fisha\OrderFlow\Cron\Queue\Cleanup">
+        <arguments>
+            <argument name="serviceModel" xsi:type="object">Fisha\OrderFlow\Service\Queue\Run</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="orderflow:queue:run" xsi:type="object">Fisha\OrderFlow\Console\Queue\Run</item>
+                <item name="orderflow:queue:clean" xsi:type="object">Fisha\OrderFlow\Console\Queue\Clean</item>
+                <item name="orderflow:order:testRun" xsi:type="object">Fisha\OrderFlow\Console\Order\TestRun</item>
+                <item name="orderflow:order:testSend" xsi:type="object">Fisha\OrderFlow\Console\Order\TestSend</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Fisha\OrderFlow\Config\Reader\Status" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="converter" xsi:type="object">Fisha\OrderFlow\Model\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Fisha\OrderFlow\Model\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">orderflow_status.xml</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Edea processors -->
+    <virtualType name="Fisha\OrderFlow\Service\Processor\Processing" type="Fisha\OrderFlow\Service\Processor\Edea\RegisterTransaction">
+        <arguments>
+            <argument name="transactionManagement" xsi:type="object">Fisha\EdeaIntegration\Model\FinalTransactionManagement</argument>
+            <argument name="transactionType" xsi:type="string">Final Transaction</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Fisha\OrderFlow\Service\Processor\Inv\Cancel\Credit" type="Fisha\OrderFlow\Service\Processor\Edea\RegisterTransaction">
+        <arguments>
+            <argument name="transactionManagement" xsi:type="object">Fisha\EdeaIntegration\Model\CreditTransactionManagement</argument>
+            <argument name="transactionType" xsi:type="string">Credit Transaction</argument>
+        </arguments>
+    </virtualType>
+    <type name="Fisha\OrderFlow\Service\Processor\Inv\Cancel\Transaction">
+        <arguments>
+            <argument name="registerEdeaTransaction" xsi:type="object">Fisha\OrderFlow\Service\Processor\Inv\Cancel\Credit</argument>
+        </arguments>
+    </type>
+    <!-- END Edea processors -->
+
+    <virtualType name="Fisha\OrderFlow\Model\Config\Data" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Fisha\OrderFlow\Config\Reader\Status</argument>
+            <argument name="cacheId" xsi:type="string">fisha_order_flow_status_list_cache</argument>
+        </arguments>
+    </virtualType>
+    <type name="Fisha\OrderFlow\Model\Factory\ProcessorConfigFactory">
+        <arguments>
+            <argument name="configData" xsi:type="object">Fisha\OrderFlow\Model\Config\Data</argument>
+        </arguments>
+    </type>
+    <virtualType name="Fisha\OrderFlow\Model\Logger\DebugHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/orderflow/debug.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Fisha\OrderFlow\Model\Logger\ErrorHandler" type="Magento\Framework\Logger\Handler\Exception">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/orderflow/error.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Fisha\OrderFlow\Model\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Fisha\OrderFlow\Model\Logger\DebugHandler</item>
+                <item name="error" xsi:type="object">Fisha\OrderFlow\Model\Logger\ErrorHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Fisha\OrderFlow\Service\Queue\Clean">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Model\Http\Client">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Model\Processor\CommonLogic">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Service\Notification\Sender">
+        <arguments>
+            <argument name="senders" xsi:type="array">
+                <item name="email_templates" xsi:type="object">Fisha\OrderFlow\Service\Notification\Sender\Email</item>
+            </argument>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Service\RunProcessorService">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Fisha\OrderFlow\Service\TestRunProcessorService" type="Fisha\OrderFlow\Service\RunProcessorService">
+        <arguments>
+            <argument name="isTestMode" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <type name="Fisha\OrderFlow\Console\Queue\Test">
+        <arguments>
+            <argument name="runProcessorService" xsi:type="object">Fisha\OrderFlow\Service\TestRunProcessorService</argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="Fisha\OrderFlow\Service\Queue\LockUpdateItemsProcess" type="Fisha\ProcessLocker\Service\Locker">
+        <arguments>
+            <argument name="maxRunTimeInMinutes" xsi:type="number">10</argument>
+            <argument name="fileName" xsi:type="string">fisha_orderflow_run.lock</argument>
+        </arguments>
+    </virtualType>
+    <type name="Fisha\OrderFlow\Service\Queue\Run">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+            <argument name="lockUpdateItemsProcess" xsi:type="object">Fisha\OrderFlow\Service\Queue\LockUpdateItemsProcess</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Service\Queue\AddItems">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Service\Order\CancelOrderItems">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Fisha\OrderFlow\Service\Api\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Fisha\OrderFlow\Model\Logger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Fisha\OrderFlow\Model\ResourceModel\Queue\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">order_flow_queue</argument>
+            <argument name="resourceModel" xsi:type="string">Fisha\OrderFlow\Model\ResourceModel\Queue\Collection</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Fisha\OrderFlow\Model\ResourceModel\Queue\Log\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">order_flow_log</argument>
+            <argument name="resourceModel" xsi:type="string">Fisha\OrderFlow\Model\ResourceModel\Queue\Log\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="orderflow_queue_listing_data_source" xsi:type="string">Fisha\OrderFlow\Model\ResourceModel\Queue\Grid\Collection</item>
+                <item name="orderflow_log_listing_data_source" xsi:type="string">Fisha\OrderFlow\Model\ResourceModel\Queue\Log\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Model\Order\Item">
+        <plugin name="order_flow" type="\Fisha\OrderFlow\Plugin\Order\ItemPlugin" sortOrder="90" />
+    </type>
+
+    <type name="Fisha\OrderFlow\Service\Notification\Sender\Email">
+        <arguments>
+            <argument name="addOrderExtraDataService" xsi:type="object">Fisha\OrderFlow\Service\Notification\Sender\Email\AddOrderExtraData\Proxy</argument>
+        </arguments>
+    </type>
+
+</config>

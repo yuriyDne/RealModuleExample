@@ -1,0 +1,48 @@
+{
+    "order_flow_queue": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "increment_id": true,
+            "state": true,
+            "status": true,
+            "last_error": true,
+            "attempts_count": true,
+            "stop_processing_reason": true,
+            "created_at": true,
+            "updated_at": true,
+            "next_update": true,
+            "next_update_interval": true
+        },
+        "index": {
+            "ORDER_FLOW_QUEUE_ORDER_ID": true,
+            "ORDER_FLOW_QUEUE_INCREMENT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "order_flow_log": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "increment_id": true,
+            "state": true,
+            "status": true,
+            "created_at": true,
+            "message": true,
+            "api_type": true,
+            "api_request": true,
+            "api_response": true,
+            "is_success": true
+        },
+        "index": {
+            "ORDER_FLOW_LOG_ORDER_ID": true,
+            "ORDER_FLOW_LOG_INCREMENT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ORDER_FLOW_LOG_ORDER_ID_ORDER_FLOW_QUEUE_ORDER_ID": true
+        }
+    }
+}

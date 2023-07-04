@@ -1,0 +1,26 @@
+<!--@subject Order update @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var customer.email":"Customer Email",
+"htmlescape var=$customer.password":"Customer Password"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+<p style="font-weight: 600;"> Subject: Order update.</p>
+<p>Hi, {{var order.getCustomerName()}}</p>
+<p>Thank you for your order at ALDO Shoes Israel.</p>
+<p>Unfortunately, the products listed below have run out of stock after your order has been placed, and we are unable to provide them.</p>
+<p>The payment method you paid will be credited within 7 business days for items canceled in accordance with the Consumer Protection Act.</p>
+
+{{layout handle="sales_email_order_items" area="frontend" order_id=$orderId}}
+
+{{var items_html}}
+
+{{template config_path="design/email/footer_template"}}

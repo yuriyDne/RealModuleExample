@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add action="fisha_orderflow/queue/index"
+             id="Fisha_OrderFlow::queue_manager"
+             module="Fisha_OrderFlow"
+             parent="Fisha::fisha"
+             resource="Fisha_OrderFlow::OrderFlow"
+             sortOrder="20"
+             title="OrderFlow Queue Manager"/>
+    </menu>
+</config>
+

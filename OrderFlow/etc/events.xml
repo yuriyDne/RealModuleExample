@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="email_creditmemo_set_template_vars_before">
+        <observer name="orderflow_append_creditmemo_pdf" instance="Fisha\OrderFlow\Observer\CreditMemo\AppendPdfUrlObserver"/>
+    </event>
+    <event name="sales_order_shipment_save_before">
+        <observer instance="Fisha\BaldarShipping\Observer\Sales\OrderShipmentSaveBefore" name="fisha_baldar_shipping_observer_sales_order_shipment_save_before"/>
+    </event>
+</config>

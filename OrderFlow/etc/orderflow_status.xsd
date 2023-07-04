@@ -1,0 +1,21 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="status" type="order_flow_status" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="order_flow_status">
+        <xs:sequence>
+            <xs:element name="processStatus" type="xs:string" minOccurs="1"/>
+            <xs:element name="processor" type="xs:string" minOccurs="1"/>
+            <xs:element name="attemptsCount" type="xs:integer" minOccurs="0" />
+            <xs:element name="nextRunInMinutes" type="xs:string" minOccurs="0" />
+            <xs:element name="nextStatus" type="xs:string"  minOccurs="0"/>
+            <xs:element name="failedStatus" type="xs:string"  minOccurs="0"/>
+            <xs:element name="possibleStatuses" type="xs:string"  minOccurs="0"/>
+            <xs:element name="sendNotificationClass" type="xs:string"  minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

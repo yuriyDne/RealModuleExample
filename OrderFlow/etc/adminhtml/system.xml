@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+            <tab id="fisha" translate="label" sortOrder="400">
+            <label>Fisha</label>
+        </tab>
+        <section id="fisha_orderflow" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>order-flow</class>
+            <label>Fisha OrderFlow</label>
+            <tab>fisha</tab>
+            <resource>Fisha_OrderFlow::OrderFlow</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="select">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="remove_order_statuses" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="20" translate="label" type="multiselect">
+                    <label>Order Statuses For Remove</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="leave_in_queue_order_statuses" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="20" translate="label" type="multiselect">
+                    <label>Leave In Queue Failed Order statuses</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+
+                <field id="max_attempts" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>Max Attempts</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="start_order_id" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>Start flow from ID</label>
+                    <comment>Order ENTITY ID</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="send_notification_to" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>Send Notifications To</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Comma separated email addresses.]]></comment>
+                </field>
+            </group>
+            <group id="api" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>API Settings</label>
+                <field id="inv_api_url" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>Inventory Api URL</label>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+            <group id="email_templates" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Templates</label>
+                <field id="enable" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="select">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="orderflow_bcc_recipients" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>BCC Emails To</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[Comma separated email addresses.]]></comment>
+                </field>
+                <field id="orderflow_active_templates" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="40" translate="label" type="multiselect">
+                    <label>Send To Customer Templates</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="orderflow_send_to_admin_templates" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="50" translate="label" type="multiselect">
+                    <label>Send Emails to Admin for order statuses</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="complete" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="60" translate="label" type="select">
+                    <label>Complete</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="canceled" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="70" translate="label" type="select">
+                    <label>Canceled</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="prio_invoiced" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="80" translate="label" type="select">
+                    <label>13. Prio Invoiced</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_shipped" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="90" translate="label" type="select">
+                    <label>14.a.1. Store Pickup - Shipped</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="100" translate="label" type="select">
+                    <label>14.a.4 Store Pickup - Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_customer_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="110" translate="label" type="select">
+                    <label>14.a.6 Store Pickup - Customer Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="payment_failed" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="120" translate="label" type="select">
+                    <label>8.0.1 Payment Failed</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_exported" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="130" translate="label" type="select">
+                    <label>14.b.3 Delivery Shipping Exported</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_failed" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="140" translate="label" type="select">
+                    <label>14.b.2.1 Delivery - Shipping Export Error</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="150" translate="label" type="select">
+                    <label>14.b.9 Delivery -  Customer Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_shipped" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="160" translate="label" type="select">
+                    <label>14.b.7 Delivery Shipped</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_partially" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="170" translate="label" type="select">
+                    <label>6.b.2 Pull INV Cancel Items</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_transaction" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="180" translate="label" type="select">
+                    <label>6.a.1 EDEA Canceled </label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="refund_transaction" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="190" translate="label" type="select">
+                    <label>Refund Transaction</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="refund_transaction_partially" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="200" translate="label" type="select">
+                    <label>Partially Refund Transaction</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_credit" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="220" translate="label" type="select">
+                    <label>Edea Credit Transaction</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_credit_email" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="220" translate="label" type="select">
+                    <label>Edea Cancel Credit Email</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_transaction_email" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="220" translate="label" type="select">
+                    <label>Edea Cancel Transaction Email</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+
+                <field id="refund_transaction_failed" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="230" translate="label" type="select">
+                    <label>Refund Transaction Failed</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="sms_templates" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sms Templates</label>
+                <field id="enable" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="select">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="send_notification_to" showInDefault="1" showInStore="1" showInWebsite="0" sortOrder="30" translate="label" type="text">
+                    <label>Send Notifications To</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <validate>validate-number</validate>
+                    <comment><![CDATA[Comma separated mobile numbers.]]></comment>
+                </field>
+                <field id="orderflow_active_templates" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="40" translate="label" type="multiselect">
+                    <label>Active Templates</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="exported" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="50" translate="label" type="select">
+                    <label>2.  Exported / INV Export</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="complete" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="60" translate="label" type="select">
+                    <label>Complete</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="canceled" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="70" translate="label" type="select">
+                    <label>Canceled</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="prio_invoiced" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="80" translate="label" type="select">
+                    <label>13. Prio Invoiced</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_shipped" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="90" translate="label" type="select">
+                    <label>14.a.1. Store Pickup - Shipped</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="100" translate="label" type="select">
+                    <label>14.a.4 Store Pickup - Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="pickup_customer_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="110" translate="label" type="select">
+                    <label>14.a.6 Store Pickup - Customer Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="payment_failed" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="120" translate="label" type="select">
+                    <label>8.0.1 Payment Failed</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_exported" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="130" translate="label" type="select">
+                    <label>14.b.3 Delivery Shipping Exported</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_failed" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="140" translate="label" type="select">
+                    <label>14.b.2.1 Delivery - Shipping Export Error</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_received" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="150" translate="label" type="select">
+                    <label>14.b.9 Delivery -  Customer Received</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="delivery_shipped" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="160" translate="label" type="select">
+                    <label>14.b.7 Delivery Shipped</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_partially" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="170" translate="label" type="select">
+                    <label>6.b.2 Pull INV Cancel Items</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="inv_cancel_transaction" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="180" translate="label" type="select">
+                    <label>6.a.1 EDEA Canceled </label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="refund_transaction" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="190" translate="label" type="select">
+                    <label>Refund Transaction</label>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="cron_jobs" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="50" translate="label">
+                <label>Cron Jobs</label>
+                <field id="cleanup" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="text">
+                    <label>Queue Cleanup</label>
+                </field>
+                <field id="run" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="text">
+                    <label>Queue Run</label>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

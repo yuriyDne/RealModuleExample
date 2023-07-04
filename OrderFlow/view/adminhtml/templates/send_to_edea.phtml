@@ -1,0 +1,13 @@
+<?php
+/** @var \Magento\Backend\Block\Template $block */
+/** @var \Magento\Sales\Model\Order $order */
+
+use Fisha\OrderFlow\Model\Config\OrderStatus;
+
+$order = $block->getData('order');
+?>
+<?php if ($order->getStatus() == OrderStatus::STATUS_REFUND_TRANSACTION_FAILED): ?>
+    <a href="<?=$block->getUrl('fisha_orderflow/order/sendEdea', ['orderId' => $order->getId()])?>" class="action-default scalable action-save action-secondary">
+        Send to Edea
+    </a>
+<?php endif; ?>

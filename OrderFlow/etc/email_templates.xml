@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+
+    <!-- Default Blank email templates -->
+    <template id="fisha_orderflow_email_templates_complete" label="Orderflow Template Order complete" file="order_completed.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_prio_invoiced" label="Orderflow Template Order Prio Invoiced" file="prio_invoiced.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_pickup_shipped" label="Orderflow Template Order Pickup Shipped" file="pickup_shipped.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_pickup_customer_received" label="Orderflow Template Order Pickup Customer Received" file="order_received.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_payment_failed" label="Orderflow Template Order Payment Failed" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_delivery_exported" label="Orderflow Template Order Delivery Exported" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_delivery_failed" label="Orderflow Template Order Delivery Failed" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_delivery_received" label="Orderflow Template Order Delivery Received" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_delivery_shipped" label="Orderflow Template Order Delivery Shipped" file="delivery_shipped.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_inv_cancel_partially" label="Orderflow Template Invoice Cancel Partially" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_inv_cancel_transaction" label="Orderflow Template Invoice Cancel Transaction" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_inv_cancel_credit" label="Orderflow Template Invoice Cancel Credit" file="blank.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+
+    <!-- Email templates templates -->
+    <template id="fisha_orderflow_email_templates_canceled" label="Orderflow Template Order Canceled" file="order_canceled.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_order_updated" label="Orderflow Template Order Updated" file="order_updated.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_order_received" label="Orderflow Template Order Received" file="order_received.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_prio_exported" label="Orderflow Template Order prio_exported" file="order_updated.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_pickup_received" label="Orderflow Template Order In Store" file="order_in_store.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_refund_transaction_failed" label="Orderflow Template - Refund Transaction Failed" file="refund_transaction_failed.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_refund_transaction" label="Orderflow Template Refund Transaction" file="refund_transaction.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_refund_transaction_partially" label="Orderflow Template Refund Transaction Partially" file="refund_partially_transaction.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+
+    <template id="fisha_orderflow_email_templates_inv_cancel_transaction_email" label="Orderflow Template Refund Transaction" file="refund_transaction.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_email_templates_inv_cancel_credit_email" label="Orderflow Template Refund Transaction Partially" file="refund_partially_transaction.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+
+    <template id="fisha_orderflow_email_templates_creditmemo" label="Orderflow Template Creditmemo" file="creditmemo.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="orderflow_failed" label="Orderflow Template Order Canceled" file="orderflow_failed.html" type="html" module="Fisha_OrderFlow" area="adminhtml"/>
+
+
+    <!-- Default Blank SMS templates -->
+    <template id="fisha_orderflow_sms_templates_complete" label="SMS Orderflow Template Order complete" file="order_completed.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_pickup_customer_received" label="SMS Orderflow Template Order Pickup Customer Received" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_payment_failed" label="SMS Orderflow Template Order Payment Failed" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_delivery_exported" label="SMS Orderflow Template Order Delivery Exported" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_delivery_failed" label="SMS Orderflow Template Order Delivery Failed" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_delivery_received" label="SMS Orderflow Template Order Delivery Received" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_delivery_shipped" label="SMS Orderflow Template Order Delivery Shipped" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_inv_cancel_partially" label="SMS Orderflow Template Invoice Cancel Partially" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_inv_cancel_transaction" label="SMS Orderflow Template Invoice Cancel Transaction" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_canceled" label="SMS Orderflow Template Order Cancelled" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_refund_transaction_failed" label="SMS Orderflow Template - Refund Transaction Failed" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_refund_transaction" label="SMS Orderflow Template Refund Transaction" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_refund_transaction_partially" label="SMS Orderflow Template Refund Transaction Partially" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_creditmemo" label="SMS Orderflow Template Creditmemo" file="blank.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+
+    <!-- Sms templates templates -->
+    <template id="fisha_orderflow_sms_templates_prio_invoiced" label="SMS Order Prio Exported" file="order_prio_invoiced_sms.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_exported" label="SMS Order INV Exported" file="exported_sms.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_pickup_shipped" label="SMS Store Pickup - Shipped" file="pickup_shipped_sms.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+    <template id="fisha_orderflow_sms_templates_pickup_received" label="SMS Store Pickup - Received" file="pickup_received_sms.html" type="text" module="Fisha_OrderFlow" area="adminhtml"/>
+</config>

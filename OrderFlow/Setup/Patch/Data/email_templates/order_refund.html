@@ -1,0 +1,7 @@
+{{template config_path="design/email/header_template"}}
+
+<p>היי {{var order.getCustomerName()}},</p>
+
+<p>מצורפת בזאת חשבונית זיכוי עבור הפריטים שבוטלו בהזמנה {{var order.getIncrementId()}}</p>
+
+{{template config_path="design/email/footer_template"}}

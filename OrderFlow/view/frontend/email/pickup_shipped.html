@@ -1,0 +1,91 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "your order is on its way to the branch!"}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var order_data.customer_name":"Customer Name",
+"var comment|escape|nl2br":"Invoice Comment",
+"var invoice.increment_id":"Invoice Id",
+"layout area=\"frontend\" handle=\"sales_email_order_invoice_items\" invoice=$invoice order=$order":"Invoice Items Grid",
+"var order.increment_id":"Order Id",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var store.frontend_name":"Store Frontend Name",
+"var store_phone":"Store Phone",
+"var store_email":"Store Email",
+"var store_hours":"Store Hours",
+"var invoice": "Invoice",
+"var order": "Order",
+"var order_id": "Order DB Id",
+"var invoice_id": "Invoice DB Id",
+"var order_data.is_not_virtual": "Order Type"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table style="width: 100%">
+    <tr>
+        <td style="color: #000000;
+            font-family: Narkis;
+            font-size: 31px;
+            font-weight: 500;
+            font-style: normal;
+            letter-spacing: normal;
+            line-height: normal;
+            text-align: left;
+            text-transform: uppercase;
+            padding-bottom: 20px;"
+        >
+            <p>{{trans "הזמנה בדרך לסניף!"}}</p>
+        </td>
+    </tr>
+    <tr class="email-intro">
+        <td style="width: 100%">
+            <p>{{trans "Hi,"}} {{var order.getCustomerLastname()}}  {{var order.getCustomerFirstname()}}</p>
+            <p>
+                {{trans "We are happy to inform you that your order is on its way to the branch!"}}
+            </p>
+            <p>
+                {{trans "We will contact you to coordinate the delivery of the shipment upon arrival at the branch" |raw}}
+                {{block class="Fisha\\OrderFlow\\Block\\Order\\BranchName" area='frontend' order_id=$order.entity_id}}
+            </p>
+            <p>{{trans 'Delivery certificate number: #' }} {{layout handle="sales_email_order_shipment_track_id" shipment_id=$shipment_id order_id=$order_id}}</p>
+            <p>{{trans 'For order:'}} # {{var order.getIncrementId()}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td style="padding: 13px 16px;">
+            <h1 style=" display:inline-block; direction:rtl; width: 100%; text-align: right">{{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}</h1>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="order-details">
+                <tr>
+                    <td class="address-details">
+                        <h3>{{trans "Shipping Info"}}</h3>
+                        <p style="direction: rtl">{{var formattedShippingAddress|raw}}</p>
+                    </td>
+
+
+                    <td class="method-info">
+                        <h3>{{trans "Shipping Method"}}</h3>
+                        <p style="direction: rtl">{{var order.shipping_description}}</p>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{block class="Fisha\\OrderFlow\\Block\\Order\\BranchName" area='frontend' order_id=$order.entity_id}}
+<br />
+    {{block class="Magento\\Cms\\Block\\Block" area='frontend' block_id="email-beforeFooter-block"}}
+<br />
+
+{{template config_path="design/email/footer_template"}}

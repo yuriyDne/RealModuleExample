@@ -1,0 +1,18 @@
+{{template config_path="design/email/header_template"}}
+
+<p style="font-weight: 600;"> Subject: Refund Transaction Failed.</p>
+
+<p>מצורפת בזאת חשבונית זיכוי עבור הפריטים שבוטלו בהזמנה {{var order.getIncrementId()}}</p>
+
+
+{{layout handle="sales_email_order_items" area="frontend" order_id=$orderId}}
+
+{{if errorMessage}}
+<p>
+    <b>Error reason:</b> {{var errorMessage}}
+</p>
+{{/if}}
+
+{{var items_html}}
+
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,22 @@
+<!--@subject Invitation canceled @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"htmlescape var=$customer.name":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var customer.email":"Customer Email",
+"htmlescape var=$customer.password":"Customer Password"}
+@-->
+
+<!--@styles
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+    <p style="font-weight: 600;"> Subject: Invitation canceled.</p>
+    <p>Hi, {{var customer.name()}}</p>
+    <p>Thank you for your order at ALDO Shoes Israel.</p>
+    <p>Unfortunately, the ordered products are out of stock after the order is placed by you, and we are unable to provide them.</p>
+    <p>The payment method you paid will be credited within 7 business days in accordance with the Consumer Protection Act.</p>
+
+{{template config_path="design/email/footer_template"}}

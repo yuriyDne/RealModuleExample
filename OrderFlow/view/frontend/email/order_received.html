@@ -1,0 +1,26 @@
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hi %customer_name," customer_name=$order_data.customer_name}}</p>
+            <p>{{trans "Thanks for the invitation, stay tuned!"}}</p>
+            <p>
+                {{trans "Thank you for placing your order on the ALDO Shoes Israel website. Once your package is shipped, we will update you by email with a tracking number."}}
+            </p>
+        </td>
+    </tr>
+    <tr class="invintation_and_order">
+        <td style="display: block">
+            <div style="width: 40%; padding: 15px 20px;display: inline-block">
+                <span>{{trans "View invitation"}}</span>
+                <img src="{{view url='images/icons/processing.png'}}" height="22" width="16" alt="{{trans 'processing'}}" />
+            </div>
+            <div  style="width: 41%; padding: 15px 20px;display: inline-block">
+                <span>{{trans "Tracking orders"}}</span>
+                <img src="{{view url='images/icons/shipped.png'}}" height="22" width="16" alt="{{trans 'shipped'}}" />
+            </div>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

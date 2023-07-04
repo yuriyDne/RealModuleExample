@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /* @var \Magento\Framework\View\Element\Template $block */ ?>
+<?php $_shipment = $block->getShipment() ?>
+<?php
+/* @var \Magento\Sales\Model\Order $_order */
+$_order = $block->getOrder() ?>
+<?php if ($_shipment && $_order) : ?>
+    <?php $trackCollection = $_order->getTracksCollection($_shipment->getId()) ?>
+    <?php if ($trackCollection) : ?>
+        <?php foreach ($trackCollection as $_item) : ?>
+            <span>
+                <?= $block->escapeHtml($_item->getNumber()) ?>
+            </span>
+        <?php endforeach ?>
+    <?php endif; ?>
+<?php endif; ?>

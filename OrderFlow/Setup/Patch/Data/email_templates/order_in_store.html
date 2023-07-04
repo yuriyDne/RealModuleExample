@@ -1,0 +1,8 @@
+{{template config_path="design/email/header_template"}}
+
+<p>היי {{var customer.name()}},</p>
+<p>אנו שמחים לבשר לך שהזמנה מספר <strong>{{var order.getIncrementId()}}</strong> ממתינה לך לאיסוף בסניף <strong>{{var order.getStoreName()}}</strong>.</p>
+<p>נא להצטייד במספר ההזמנה ובתעודה מזהה כדי לאסוף את ההזמנה.</p>
+<p>מחכים לך!</p>
+
+{{template config_path="design/email/footer_template"}}

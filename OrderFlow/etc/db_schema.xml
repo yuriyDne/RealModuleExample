@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="order_flow_queue Table" engine="innodb" name="order_flow_queue" resource="default">
+        <column comment="Entity Id" identity="true" name="entity_id" nullable="false" padding="6" unsigned="true" xsi:type="int"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="entity_id"/>
+        </constraint>
+        <column name="order_id" nullable="false" xsi:type="int"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Order Increment Id"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="32" comment="Order State"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Order Status"/>
+        <column xsi:type="varchar" name="last_error" nullable="true" length="500" comment="last error"/>
+        <column xsi:type="int" name="attempts_count" nullable="true" comment="Attempts count"/>
+        <column xsi:type="int" name="stop_processing_reason" nullable="true" comment="Stop Processing Reason" default="0"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="timestamp" name="next_update" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Next Update At"/>
+        <index referenceId="FISHA_ORDERFLOW_QUEUE_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="FISHA_ORDERFLOW_QUEUE_INCREMENT_ID" indexType="btree">
+            <column name="increment_id"/>
+        </index>
+    </table>
+
+    <table comment="order_flow_log Table" engine="innodb" name="order_flow_log" resource="default">
+        <column comment="Entity Id" identity="true" name="entity_id" nullable="false" padding="6" unsigned="true" xsi:type="bigint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="entity_id"/>
+        </constraint>
+        <column name="order_id" nullable="false" xsi:type="int"/>
+        <column xsi:type="varchar" name="increment_id" nullable="true" length="32" comment="Order Increment Id"/>
+        <column xsi:type="varchar" name="state" nullable="true" length="32" comment="Order State"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Order Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="varchar" name="message" nullable="true" length="32" comment="last error"/>
+        <column xsi:type="varchar" name="api_type" nullable="true" length="32" comment="Api type"/>
+        <column xsi:type="text" name="api_request" nullable="true" comment="Api Request"/>
+        <column xsi:type="text" name="api_response" nullable="true" comment="Api Error"/>
+        <column name="is_success" nullable="false" xsi:type="smallint"/>
+
+        <index referenceId="FISHA_ORDERFLOW_QUEUE_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="FISHA_ORDERFLOW_QUEUE_INCREMENT_ID" indexType="btree">
+            <column name="increment_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="ORDER_FLOW_LOG_ORDER_FLOW_QUEUE_ORDER_ID"
+                    table="order_flow_log" column="order_id"
+                    referenceTable="order_flow_queue" referenceColumn="order_id"/>
+    </table>
+</schema>

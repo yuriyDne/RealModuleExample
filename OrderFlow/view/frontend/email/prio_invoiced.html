@@ -1,0 +1,65 @@
+<!--@subject {{trans "Invoice for your %store_name order" store_name=$store.frontend_name}} @-->
+{{template config_path="design/email/header_template"}}
+<table style="direction: rtl; width: 100%">
+    <tr>
+        <td style="padding-bottom: 40px;color: #000000;
+            font-family: Narkis;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: normal;
+            line-height: normal;
+            text-align: right;
+            text-transform: uppercase;"
+        >
+            <p>{{trans "Hi,"}} {{var order.getCustomerLastname()}}  {{var order.getCustomerFirstname()}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-bottom: 40px;color: #000000;
+            font-family: Narkis;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: normal;
+            line-height: normal;
+            text-align: right;
+            text-transform: uppercase;"
+        >
+            {{trans "Thank you for placing your order on the ALDO Shoes Israel website. Order Number <span class='no-link'>#%increment_id</span> A tax / receipt invoice is attached to this email" increment_id=$order.increment_id |raw}}
+        </td>
+    </tr>
+</table>
+<table style="width: 100%;direction: rtl">
+    <tr>
+
+        <td style="padding: 15px;
+            width: 50%;
+            background-color: #f3f1f9;
+            text-align: center;
+            text-transform: uppercase;"
+        >
+            <a href="{{var attachmentUrl}}"
+               style="color: #000000;
+                font-family: Narkis;
+                direction: rtl;
+                display: block;
+                width: 100%;
+                font-size: 16px;
+                font-weight: 400;
+                font-style: normal;
+                letter-spacing: normal;
+                line-height: normal;"
+            >
+
+                <img src="{{view url='images/icons/processing.png'}}" height="22" width="16" alt="{{trans 'processing'}}" />
+                <span>{{trans "To download a purchase invoice"}}</span>
+            </a>
+        </td>
+        <td style="width: 50%"></td>
+    </tr>
+</table>
+<br />
+    {{block class="Magento\\Cms\\Block\\Block" area='frontend' block_id="email-beforeFooter-block"}}
+<br />
+{{template config_path="design/email/footer_template"}}

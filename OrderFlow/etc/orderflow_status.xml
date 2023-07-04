@@ -1,0 +1,227 @@
+<?xml version="1.0" ?>
+<!-- file app/code/Atwix/Warehouses/etc/warehouses_list.xml -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="orderflow_status.xsd">
+
+    <!-- Step 1 Export Order To Edea (status - processing) -->
+    <status>
+        <processStatus>processing</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Processing</processor> <!-- see di.xml -->
+        <nextStatus>prio_exported</nextStatus>
+        <failedStatus>edea_export_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>edea_export_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\ProcessFailedStatus</processor>
+        <nextStatus>edea_export_failed</nextStatus>
+    </status>
+    <!-- End Step 1 -->
+
+    <!-- Step 2 Export Order to Inventory Api -->
+    <status>
+        <processStatus>prio_exported</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Prio\Exported</processor>
+        <nextStatus>prio_invoiced</nextStatus>
+        <failedStatus>payment_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>prio_invoiced</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Prio\Invoiced</processor>
+        <nextStatus>exported</nextStatus>
+        <failedStatus>inv_export_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>prio_invoiced_exists</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor>
+        <nextStatus>exported</nextStatus>
+    </status>
+    <status>
+        <processStatus>exported</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Exported</processor>
+        <attemptsCount>10000</attemptsCount>
+        <nextRunInMinutes>20</nextRunInMinutes>
+        <possibleStatuses>picked,refund_transaction,refund_transaction_partially</possibleStatuses>
+    </status>
+    <status>
+        <processStatus>prio_export_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\ProcessFailedStatus</processor>
+        <nextStatus>prio_export_failed</nextStatus>
+    </status>
+    <!-- End Step 2 -->
+
+    <!-- Step 3.1 Make Refund / Partial Refund (if need) after Inventory Api Order processing -->
+    <status>
+        <processStatus>refund_transaction</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Refund\Transaction</processor>
+        <nextStatus>inv_cancel_transaction</nextStatus>
+        <failedStatus>refund_transaction_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>refund_transaction_partially</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Refund\Transaction\Partially</processor>
+        <nextStatus>inv_cancel_credit</nextStatus>
+        <failedStatus>refund_transaction_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>refund_transaction_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\ProcessFailedStatus</processor>
+        <nextStatus>refund_transaction_failed</nextStatus>
+    </status>
+    <!-- End Step 3.1 -->
+
+    <!-- Step 3.2 Send Refund transaction to EDEA client -->
+    <status>
+        <processStatus>inv_cancel_credit</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Inv\Cancel\Transaction</processor>
+        <nextStatus>inv_cancel_credit_email</nextStatus>
+        <failedStatus>inv_cancel_transaction_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>inv_cancel_transaction</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Inv\Cancel\Transaction</processor>
+        <nextStatus>inv_cancel_transaction_email</nextStatus>
+        <failedStatus>inv_cancel_transaction_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>inv_cancel_credit_email</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor> <!-- see di.xml -->
+        <nextStatus>picked</nextStatus>
+        <failedStatus>inv_cancel_transaction_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>inv_cancel_transaction_email</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor> <!-- see di.xml -->
+        <nextStatus>refunded_canceled</nextStatus>
+        <failedStatus>inv_cancel_transaction_failed</failedStatus>
+    </status>
+
+    <status>
+        <processStatus>inv_cancel_transaction_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\ProcessFailedStatus</processor>
+        <nextStatus>inv_cancel_transaction_failed</nextStatus>
+    </status>
+    <!-- End Step 3.2 -->
+
+    <!-- End Step 3 -->
+
+    <!-- Step 4 Process order shipment -->
+    <status>
+        <processStatus>picked</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Picked</processor>
+        <nextStatus>delivery_exported</nextStatus>
+        <failedStatus>delivery_failed</failedStatus>
+        <possibleStatuses>delivery_exported,pickup_shipped,pickup_received,pickup_customer_received,delivery_processing</possibleStatuses>
+    </status>
+
+    <status>
+        <processStatus>delivery_processing</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Delivery\Processing</processor>
+        <attemptsCount>5</attemptsCount>
+        <nextStatus>delivery_exported</nextStatus>
+        <failedStatus>delivery_failed</failedStatus>
+        <possibleStatuses>delivery_exported,delivery_processing</possibleStatuses>
+    </status>
+
+    <!-- Step 4.1 Store Pickup Shipment -->
+    <status>
+        <processStatus>pickup_shipped</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\StorePickup</processor>
+        <attemptsCount>1000</attemptsCount>
+        <failedStatus>delivery_failed</failedStatus>
+        <possibleStatuses>pickup_received,pickup_customer_received</possibleStatuses>
+    </status>
+    <status>
+        <processStatus>pickup_received</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\StorePickup</processor>
+        <attemptsCount>1000</attemptsCount>
+        <failedStatus>delivery_failed</failedStatus>
+        <possibleStatuses>pickup_customer_received</possibleStatuses>
+    </status>
+    <status>
+        <processStatus>pickup_customer_received</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor>
+        <nextStatus>complete</nextStatus>
+        <failedStatus>delivery_failed</failedStatus>
+    </status>
+    <!-- End Step 4.1 -->
+
+    <!-- Step 4.2 Process customer delivery -->
+    <status>
+        <processStatus>delivery_exported</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Delivery\Tapuz</processor>
+        <attemptsCount>24</attemptsCount>
+        <nextStatus>delivery_shipped</nextStatus>
+        <failedStatus>delivery_failed</failedStatus>
+        <possibleStatuses>delivery_shipped,delivery_received</possibleStatuses>
+    </status>
+    <status>
+        <processStatus>delivery_shipped</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Delivery\Tapuz</processor>
+        <attemptsCount>24</attemptsCount>
+        <nextStatus>delivery_received</nextStatus>
+        <failedStatus>delivery_failed</failedStatus>
+    </status>
+    <status>
+        <processStatus>delivery_received</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor>
+        <nextStatus>complete</nextStatus>
+    </status>
+    <status>
+        <processStatus>delivery_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\ProcessFailedStatus</processor>
+        <nextStatus>delivery_failed</nextStatus>
+    </status>
+
+    <!-- End Step 4.2 -->
+    <!-- End Step 4 -->
+
+    <!-- Common statuses -->
+    <status>
+        <processStatus>pending_payment</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Pending\Payment</processor>
+        <nextStatus>processing</nextStatus>
+    </status>
+    <status>
+        <processStatus>payment_received</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\MoveToNextStatus</processor>
+        <nextStatus>prio_exported</nextStatus>
+    </status>
+    <status>
+        <processStatus>payment_failed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Payment\Failed</processor>
+        <nextStatus>payment_failed</nextStatus>
+    </status>
+    <status>
+        <processStatus>complete</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\LogCurrentStatusOnly</processor>
+        <nextStatus>complete</nextStatus>
+    </status>
+    <status>
+        <processStatus>closed</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\LogCurrentStatusOnly</processor>
+        <nextStatus>closed</nextStatus>
+    </status>
+    <status>
+        <processStatus>refunded_canceled</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Cancelled</processor>
+        <nextStatus>canceled</nextStatus>
+    </status>
+    <status>
+        <processStatus>canceled</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\LogCurrentStatusOnly</processor>
+        <nextStatus>canceled</nextStatus>
+    </status>
+    <status>
+        <processStatus>holded</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\LogCurrentStatusOnly</processor>
+        <nextStatus>holded</nextStatus>
+    </status>
+    <!-- End Common statuses -->
+
+    <status>
+        <processStatus>presale_processing</processStatus>
+        <processor>Fisha\OrderFlow\Service\Processor\Presale\Processing</processor>
+        <nextStatus>presale_complete</nextStatus>
+        <failedStatus>presale_fail</failedStatus>
+    </status>
+</config>

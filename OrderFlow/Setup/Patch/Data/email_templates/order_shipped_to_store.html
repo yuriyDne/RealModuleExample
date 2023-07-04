@@ -1,0 +1,13 @@
+{{template config_path="design/email/header_template"}}
+
+<p style="font-weight: 600;">נושא: הזמנה בדרך לסניף!</p>
+<p>היי {{var order.getStoreName()}},</p>
+<p> בדרך אליכם, נא ליצור קשר עם הלקוח מיד עם הגעת ההזמנה לסניף. <strong>{{var order.getCustomerName()}}</strong>הזמנה <strong>{{var order.getIncrementId()}}</strong> עבור </p>
+<p style="font-weight: 600;">פרטי הזמנה:</p>
+<p><strong>{{var order.getIncrementId()}}</strong></p>
+<p><strong>{{var order.getCustomerName()}}</strong></p>
+<p><strong>{{var order.getCellPhone()}}</strong></p>
+<p>תודה רבה!</p>
+<p><strong>צוות אתר aldoshoes.co.il</strong></p>
+
+{{template config_path="design/email/footer_template"}}

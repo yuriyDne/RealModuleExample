@@ -1,0 +1,14 @@
+<!--@subject {{trans "Thanks for your order!"}} @-->
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p>{{trans "Hi,"}} {{var order.getCustomerLastname()}}  {{var order.getCustomerFirstname()}}</p>
+            <p>{{trans "Thank you for ordering from the ALDO SHOES ISRAEL website and hope the shopping experience was enjoyable."}}</p>
+            <p>
+                {{trans "We would love to see you with us again :)"}}
+            </p>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}
